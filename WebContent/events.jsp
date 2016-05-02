@@ -45,30 +45,19 @@
     material.blue-orange.min.css
     material.purple-indigo.min.css
     -->
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+    	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.material.min.css">
 
     <!-- Material Design icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- Your styles -->
-    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="scripts/lib/pikaday.css">
+    <link rel="stylesheet" href="styles/main.css">
+    
   </head>
   <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
-        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <a href="#overview" class="mdl-layout__tab is-active">Overview</a>
-          <a href="#features" class="mdl-layout__tab">Features</a>
-          <a href="#features" class="mdl-layout__tab">Details</a>
-          <a href="#technology" class="mdl-layout__tab">Technology</a>
-          <a href="#features" class="mdl-layout__tab">FAQ</a>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
-            <i class="material-icons" role="presentation">add</i>
-            <span class="visuallyhidden">Add</span>
-          </button>
-        </div>
-      </header>
+    <div class="mdl-layout mdl-js-layout ">
       <main class="mdl-layout__content">
         <div class="mdl-layout__tab-panel is-active" id="overview">
             <div class="mdl-grid" style="max-width: 860px;">
@@ -102,62 +91,20 @@
 
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
             <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp full-width ">
-  <thead>
-    <tr>
-      <th class="mdl-data-table__cell--non-numeric">Material</th>
-      <th>Quantity</th>
-      <th>Unit price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
-      <td>25</td>
-      <td>$2.90</td>
-    </tr>
-    <tr>
-      <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-      <td>50</td>
-      <td>$1.25</td>
-    </tr>
-    <tr>
-      <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-      <td>10</td>
-      <td>$2.35</td>
-    </tr>
-  </tbody>
-</table>
-            </div>
-            
-          </section>
-          
-        </div>
-        <div class="mdl-layout__tab-panel" id="features">
-          <section class="section--center mdl-grid mdl-grid--no-spacing">
-            <div class="mdl-cell mdl-cell--12-col">
-              <h4>Features</h4>
-              Minim duis incididunt est cillum est ex occaecat consectetur. Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-              <ul class="toc">
-                <h4>Contents</h4>
-                <a href="#lorem1">Lorem ipsum</a>
-                <a href="#lorem2">Lorem ipsum</a>
-                <a href="#lorem3">Lorem ipsum</a>
-                <a href="#lorem4">Lorem ipsum</a>
-                <a href="#lorem5">Lorem ipsum</a>
-              </ul>
-
-              <h5 id="lorem1">Lorem ipsum dolor sit amet</h5>
-              Excepteur et pariatur officia veniam anim culpa cupidatat consequat ad velit culpa est non.
-              <ul>
-                <li>Nisi qui nisi duis commodo duis reprehenderit consequat velit aliquip.</li>
-                <li>Dolor consectetur incididunt in ipsum laborum non et irure pariatur excepteur anim occaecat officia sint.</li>
-                <li>Lorem labore proident officia excepteur do.</li>
-              </ul>
-
-              <p>
-                Sit qui est voluptate proident minim cillum in aliquip cupidatat labore pariatur id tempor id. Proident occaecat occaecat sint mollit tempor duis dolor cillum anim. Dolore sunt ea mollit fugiat in aliqua consequat nostrud aliqua ut irure in dolore. Proident aliqua culpa sint sint exercitation. Non proident occaecat reprehenderit veniam et proident dolor id culpa ea tempor do dolor. Nulla adipisicing qui fugiat id dolor. Nostrud magna voluptate irure veniam veniam labore ipsum deserunt adipisicing laboris amet eu irure. Sunt dolore nisi velit sit id. Nostrud voluptate labore proident cupidatat enim amet Lorem officia magna excepteur occaecat eu qui. Exercitation culpa deserunt non et tempor et non.
-              </p>
+            <table id="events-datatable" class="mdl-data-table mdl-shadow--2dp" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Type</th>
+						<th>Summary</th>
+						<th>Metric</th>
+						<th>Details</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+            <!-- table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp full-width "-->
             </div>
           </section>
         </div>
@@ -166,11 +113,28 @@
 
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
     <!-- build:js(app/) ../../scripts/main.min.js -->
-    <script src="scripts/main.js"></script>
+    <script src="scripts/lib/jquery-1.12.3.min.js"></script>
     <script src="scripts/lib/pikaday.js"></script>
+	<script type="text/javascript" src="scripts/lib/DataTables/datatables.min.js"></script>
+	<script src="scripts/main.js"></script>
     <script>
     var picker = new Pikaday({ field: document.getElementById('datepicker') });
-</script>
+    $(document).ready(function() {
+        $('#events-datatable').DataTable( {
+        	"bDeferRender": true,
+        	"bFilter": false,
+        	"iDisplayLength": 25,
+        	"bLengthChange": false,
+        	"bPaginate": true,
+            columnDefs: [
+                {
+                    targets: [ 0, 1, 2 ],
+                    className: 'mdl-data-table__cell--non-numeric',
+                }],
+            aaData : [['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details']]
+        } );
+    } );
+	</script>
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

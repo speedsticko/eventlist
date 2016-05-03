@@ -126,9 +126,14 @@
         	"iDisplayLength": 25,
         	"bLengthChange": false,
         	"bPaginate": true,
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "events",
+			"fnServerParams": function ( aoData ) {
+	            aoData.push( { "date": "more_data", "period": "my_value" } )},
             columnDefs: [
                 {
-                    targets: [ 0, 1, 2 ],
+                    targets: [ 0, 1, 2, 4 ],
                     className: 'mdl-data-table__cell--non-numeric',
                 }],
             aaData : [['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details']]

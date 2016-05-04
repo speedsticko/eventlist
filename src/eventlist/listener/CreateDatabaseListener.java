@@ -1,6 +1,8 @@
 package eventlist.listener;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.*;
@@ -95,9 +97,9 @@ public class CreateDatabaseListener implements ServletContextListener {
         // create the schema tables and seed data
     	 ArrayList<String> arr = new ArrayList<String>();
          try {
-        	 String databaseSqlPath = servletContext.getRealPath("/WEB-INF/assignment_data_full.json"); 
-             String sql = "";
-             
+        	 String databaseSqlPath = servletContext.getRealPath("/WEB-INF/assignment_data_full.json");
+        	 String sql = new String(Files.readAllBytes(Paths.get(databaseSqlPath)));
+
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery();
              while (rs.next()) {
@@ -105,7 +107,10 @@ public class CreateDatabaseListener implements ServletContextListener {
              }
          } catch (SQLException asd) {
              log.log(Level.SEVERE, "", asd);
-         }
+         } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 	

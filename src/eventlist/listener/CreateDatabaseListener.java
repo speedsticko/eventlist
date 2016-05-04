@@ -1,8 +1,11 @@
 package eventlist.listener;
 
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.*;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -11,6 +14,7 @@ public class CreateDatabaseListener implements ServletContextListener {
 	 private static final Logger log = Logger
 	            .getLogger(CreateDatabaseListener.class.getName());
 	  
+	private ServletContext servletContext = null;
 	
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -32,6 +36,7 @@ public class CreateDatabaseListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
+		servletContext = arg0.getServletContext();
 		try {
             log.info("Loading Derby DB Driver...");
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -88,6 +93,19 @@ public class CreateDatabaseListener implements ServletContextListener {
     private void initializeSchema(Connection con) {
         // Execute whatever SQL is necessary to 
         // create the schema tables and seed data
+    	 ArrayList<String> arr = new ArrayList<String>();
+         try {
+        	 String databaseSqlPath = servletContext.getRealPath("/WEB-INF/assignment_data_full.json"); 
+             String sql = "";
+             
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery();
+             while (rs.next()) {
+                 arr.add(rs.getString(1));
+             }
+         } catch (SQLException asd) {
+             log.log(Level.SEVERE, "", asd);
+         }
     }
 
 	

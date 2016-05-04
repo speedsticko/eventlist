@@ -45,8 +45,8 @@
     material.blue-orange.min.css
     material.purple-indigo.min.css
     -->
-    	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.material.min.css">
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.material.min.css">
 
     <!-- Material Design icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -73,37 +73,37 @@
 <button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">&#xE5CB;</i></button>
 <button class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">&#xE5CC;</i></button>          current range
             </div>
-			<div class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet" style="padding: 20px 0;">
-			<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-			  <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
-			  <span class="mdl-radio__label">Week</span>
-			</label>
-			<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-			  <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
-			  <span class="mdl-radio__label">Month</span>
-			</label>
-			<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-			  <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3">
-			  <span class="mdl-radio__label">Quarter</span>
-			</label>
-			</div>
+            <div class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet" style="padding: 20px 0;">
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+              <span class="mdl-radio__label">Week</span>
+            </label>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+              <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+              <span class="mdl-radio__label">Month</span>
+            </label>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+              <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3">
+              <span class="mdl-radio__label">Quarter</span>
+            </label>
+            </div>
             </div>
 
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
             <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
             <table id="events-datatable" class="mdl-data-table mdl-shadow--2dp" cellspacing="0" width="100%">
-				<thead>
-					<tr>
-						<th>Date</th>
-						<th>Type</th>
-						<th>Summary</th>
-						<th>Metric</th>
-						<th>Details</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Summary</th>
+                        <th>Metric</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
             <!-- table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp full-width "-->
             </div>
           </section>
@@ -115,31 +115,41 @@
     <!-- build:js(app/) ../../scripts/main.min.js -->
     <script src="scripts/lib/jquery-1.12.3.min.js"></script>
     <script src="scripts/lib/pikaday.js"></script>
-	<script type="text/javascript" src="scripts/lib/DataTables/datatables.min.js"></script>
-	<script src="scripts/main.js"></script>
+    <script type="text/javascript" src="scripts/lib/DataTables/datatables.min.js"></script>
+    <script src="scripts/main.js"></script>
     <script>
     var picker = new Pikaday({ field: document.getElementById('datepicker') });
     $(document).ready(function() {
         $('#events-datatable').DataTable( {
-        	"bDeferRender": true,
-        	"bFilter": false,
-        	"iDisplayLength": 25,
-        	"bLengthChange": false,
-        	"bPaginate": true,
-			"bProcessing": true,
-			"bServerSide": true,
-			"sAjaxSource": "events",
-			"fnServerParams": function ( aoData ) {
-	            aoData.push( { "date": "more_data", "period": "my_value" } )},
+            "deferRender": true,
+            "searching": false,
+            "pageLength": 25,
+            "lengthChange": false,
+            "paging": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": function (data, callback, settings) {
+                console.log('data');
+                console.log(data);
+                $.ajax({
+                    method: "GET",
+                    url: "events",
+                    data: { date: "John", period: "Boston" }
+                    })
+                    .done(function( msg ) {
+                        callback({sEcho:'1',iTotalRecords:25, iTotalDisplayRecords:1,aaData:[[1,2,3,4,5]]});
+                        alert( "Data Saved: " + msg );
+                    });
+                
+              },
             columnDefs: [
                 {
                     targets: [ 0, 1, 2, 4 ],
                     className: 'mdl-data-table__cell--non-numeric',
-                }],
-            aaData : [['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details'],['2016-01-01','type','summary',123,'details']]
+                }]
         } );
     } );
-	</script>
+    </script>
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

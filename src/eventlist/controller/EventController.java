@@ -1,24 +1,21 @@
 package eventlist.controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.google.gson.Gson;
 
 import eventlist.data.IEventRepository;
 import eventlist.data.InMemoryEventRepository;
 import eventlist.etl.EventRecord;
 import eventlist.etl.JsonFileLoader;
-import eventlist.model.EventPeriodType;
 import eventlist.model.GetDataTablesViewModel;
-import eventlist.model.GetEventsViewModel;
 
 @WebServlet("/events")
 public class EventController extends HttpServlet {
@@ -27,7 +24,7 @@ public class EventController extends HttpServlet {
 	
 	public EventController()	{
 		super();
-		eventRepository = new InMemoryEventRepository();
+		setEventRepository(new InMemoryEventRepository());
 	}
 	
 	/**
@@ -74,6 +71,14 @@ public class EventController extends HttpServlet {
 	     response.setContentType("application/json");
 	     response.setCharacterEncoding("UTF-8");
 	     response.getWriter().write(json);
+	}
+
+	public IEventRepository getEventRepository() {
+		return eventRepository;
+	}
+
+	public void setEventRepository(IEventRepository eventRepository) {
+		this.eventRepository = eventRepository;
 	}
 			
 }

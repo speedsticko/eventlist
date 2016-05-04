@@ -1,8 +1,5 @@
 package eventlist.model;
 
-import java.util.Date;
-import java.util.List;
-
 public class GetDataTablesViewModel {
 
 	private String sEcho; 

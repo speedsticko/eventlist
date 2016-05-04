@@ -17,4 +17,7 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/styles/*</url-pattern>
   </servlet-mapping>
+  <listener>
+  	<listener-class>eventlist.listener.CreateDatabaseListener</listener-class>
+  </listener>
 </web-app>

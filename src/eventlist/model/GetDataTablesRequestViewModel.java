@@ -5,14 +5,19 @@
  */
 package eventlist.model;
 
+import org.joda.time.LocalDate;
+
 /**
  *
  * @author Kwan
  */
 public class GetDataTablesRequestViewModel {
+
     private int draw;
     private int start;
     private int length;
+    private LocalDate date;
+    private EventPeriodType period;
 
     public int getDraw() {
         return draw;
@@ -38,5 +43,19 @@ public class GetDataTablesRequestViewModel {
         this.length = length;
     }
 
-    
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public EventPeriodType getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(EventPeriodType period) {
+        this.period = period;
+    }
 }

@@ -16,7 +16,6 @@ import eventlist.etl.EventRecord;
 import eventlist.etl.JsonStreamLoader;
 import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;

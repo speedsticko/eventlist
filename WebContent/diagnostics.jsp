@@ -2,7 +2,7 @@
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE html>
 <html>
-    <head><title>Enter to database</title></head>
+    <head><title>Diagnostics Page</title></head>
     <body>
         <table>
             <%@ page import="java.util.*" %>
@@ -14,7 +14,6 @@
                 java.sql.Statement s;
                 java.sql.ResultSet rs;
                 java.sql.PreparedStatement pst;
-
               
                 s = null;
                 pst = null;
@@ -24,9 +23,6 @@
                 DataSource ds = (DataSource) envContext.lookup("jdbc/EventsDB");
                 Connection con = ds.getConnection();
 
-                    //con = (Connection) getServletContext().getAttribute("DBConnection");
-
-                
                 String sql = "select * from events fetch first 10 rows only";
                 try {
                     s = con.createStatement();
@@ -36,9 +32,11 @@
             <%
                 while (rs.next()) {
             %><tr>
+                <td><%= rs.getInt("id")%></td>
+                <td><%= rs.getDate("event_date")%></td>
+                <td><%= rs.getString("event_type")%></td>
                 <td><%= rs.getString("event_summary")%></td>
-                <td><%= rs.getString("event_summary")%></td>
-                <td><%= rs.getString("event_summary")%></td>
+                <td><%= rs.getInt("event_size")%></td>
             </tr>
             <%
                 }

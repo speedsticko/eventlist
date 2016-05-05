@@ -1,34 +1,46 @@
 package eventlist.model;
 
+/**
+ * https://datatables.net/manual/server-side
+ *
+ * @author Kwan
+ */
 public class GetDataTablesViewModel {
 
-	private String sEcho; 
-	private int iTotalRecords;
-	private int iTotalDisplayRecords;
-	private Object[] aaData;
-	
-	public String getsEcho() {
-		return sEcho;
-	}
-	public void setsEcho(String sEcho) {
-		this.sEcho = sEcho;
-	}
-	public int getiTotalDisplayRecords() {
-		return iTotalDisplayRecords;
-	}
-	public void setiTotalDisplayRecords(int iTotalDisplayRecords) {
-		this.iTotalDisplayRecords = iTotalDisplayRecords;
-	}
-	public int getiTotalRecords() {
-		return iTotalRecords;
-	}
-	public void setiTotalRecords(int iTotalRecords) {
-		this.iTotalRecords = iTotalRecords;
-	}
-	public Object[] getAaData() {
-		return aaData;
-	}
-	public void setAaData(Object[] aaData) {
-		this.aaData = aaData;
-	}
+    private int draw;
+    private int recordsTotal;
+    private int recordsFiltered;
+    private Object[] data;
+
+    public int getDraw() {
+        return draw;
+    }
+
+    public void setDraw(int draw) {
+        this.draw = draw;
+    }
+
+    public int getRecordsTotal() {
+        return recordsTotal;
+    }
+
+    public void setRecordsTotal(int recordsTotal) {
+        this.recordsTotal = recordsTotal;
+    }
+
+    public int getRecordsFiltered() {
+        return recordsFiltered;
+    }
+
+    public void setRecordsFiltered(int recordsFiltered) {
+        this.recordsFiltered = recordsFiltered;
+    }
+
+    public Object[] getData() {
+        return data;
+    }
+
+    public void setData(Object[] data) {
+        this.data = data;
+    }
 }

@@ -75,15 +75,15 @@
             </div>
             <div class="mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet" style="padding: 20px 0;">
             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+              <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="week" checked>
               <span class="mdl-radio__label">Week</span>
             </label>
             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-              <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+              <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="month">
               <span class="mdl-radio__label">Month</span>
             </label>
             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-              <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3">
+              <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="quarter">
               <span class="mdl-radio__label">Quarter</span>
             </label>
             </div>
@@ -119,7 +119,9 @@
     <script type="text/javascript" src="scripts/lib/DataTables/datatables.min.js"></script>
     <script src="scripts/main.js"></script>
     <script>
-    var picker = new Pikaday({ field: document.getElementById('datepicker') });
+    var picker = new Pikaday({ field: document.getElementById('datepicker'), onSelect: function(date) {
+        $('#datepicker').parent().addClass('is-dirty');
+    } });
     $(document).ready(function() {
         $('#events-datatable').DataTable( {
             "deferRender": true,

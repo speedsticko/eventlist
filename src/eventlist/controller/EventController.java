@@ -15,6 +15,7 @@ import eventlist.data.EventsDAO;
 import eventlist.etl.EventRecord;
 import eventlist.etl.JsonFileLoader;
 import eventlist.model.EventPeriodType;
+import eventlist.model.GetDataTablesRequestViewModel;
 import eventlist.model.GetDataTablesViewModel;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -49,8 +50,13 @@ public class EventController extends HttpServlet {
             
             String reqDate = request.getParameter("date");
             String reqPeriod = request.getParameter("period");
+            String reqDraw = request.getParameter("draw");
+            String reqStart = request.getParameter("start");
+            String reqLength = request.getParameter("length");
+            
             String reqType = request.getParameter("type");
-            String reqLimit = request.getParameter("limit");
+            GetDataTablesRequestViewModel dtRequest = new GetDataTablesRequestViewModel();
+            
             /*
             JsonFileLoader file = new JsonFileLoader();
             List<EventRecord> list = file.Load(getServletContext().getRealPath("/WEB-INF/assignment_data_full.json"));
@@ -73,10 +79,10 @@ public class EventController extends HttpServlet {
                 Connection conn = dataSource.getConnection();
                 EventsDAO eventsData = new EventsDAO(conn);
                 Object[] dataTableData = eventsData.GetEventsForDataTable(dt, EventPeriodType.MONTH);
-                eventsViewModel.setiTotalDisplayRecords(dataTableData.length);
-                eventsViewModel.setsEcho("2");
-                eventsViewModel.setiTotalRecords(200);
-                eventsViewModel.setAaData(dataTableData);           
+                eventsViewModel.setRecordsFiltered(dataTableData.length);
+                eventsViewModel.setDraw(2);
+                eventsViewModel.setRecordsTotal(200);
+                eventsViewModel.setData(dataTableData);           
             } catch (SQLException ex) {
                 Logger.getLogger(EventController.class.getName()).log(Level.SEVERE, null, ex);
             }

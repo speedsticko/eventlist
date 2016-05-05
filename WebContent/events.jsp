@@ -153,7 +153,8 @@
                 $.ajax({
                     method: "GET",
                     url: "events",
-                    data: { date: startDate, period: "Boston" }
+                    data: { date: startDate, period: "Boston", 
+                        draw: data.draw, start:data.start, length:data.length }
                     })
                     .done(function( results ) {
                         console.log(results.length);

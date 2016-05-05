@@ -7,4 +7,4 @@ event_summary VARCHAR(1024) NOT NULL,
 event_size INT NOT NULL,
 event_detail CLOB NOT NULL,
 CONSTRAINT primary_key PRIMARY KEY (id)
-) ;
+)

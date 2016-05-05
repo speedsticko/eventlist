@@ -79,9 +79,9 @@ public class CreateDatabaseListener implements ServletContextListener {
             String databaseSqlPath = servletContext.getRealPath("/WEB-INF/database.sql");
             String sql = new String(Files.readAllBytes(Paths.get(databaseSqlPath)));
 
-            PreparedStatement ps = con.prepareStatement(sql);
-
-            int recordCount = ps.executeUpdate();
+            Statement statement = con.createStatement();
+            statement.execute(sql);
+            statement.execute("CREATE INDEX DateIndex ON Events(event_date)");
             log.info("in-memory database created");
         } catch (SQLException asd) {
             log.log(Level.SEVERE, "", asd);
@@ -98,7 +98,7 @@ public class CreateDatabaseListener implements ServletContextListener {
             log.info("Shutting down Derby DB...");
             DriverManager.getConnection(JDBC_CONN_STR + ";shutdown=true");
         } catch (SQLException sqle) {
-            if (sqle.getMessage().equals("Database '" + JDBC_CONN_STR + "' shutdown.")) {
+            if (sqle.getMessage().equals("Database '" + JDBC_CONN_STR+ "' shutdown.")) {
                 log.info("Derby DB Shutdown successfully!");
             } else {
                 throw new RuntimeException(

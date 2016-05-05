@@ -94,6 +94,7 @@
             <table id="events-datatable" class="mdl-data-table mdl-shadow--2dp" cellspacing="0" width="100%">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Date</th>
                         <th>Type</th>
                         <th>Summary</th>
@@ -134,11 +135,10 @@
                 $.ajax({
                     method: "GET",
                     url: "events",
-                    data: { date: "John", period: "Boston" }
+                    data: { date: "2010-10-10", period: "Boston" }
                     })
-                    .done(function( msg ) {
-                        callback({sEcho:'1',iTotalRecords:25, iTotalDisplayRecords:1,aaData:[[1,2,3,4,5]]});
-                        alert( "Data Saved: " + msg );
+                    .done(function( results ) {
+                        callback(results);
                     });
                 
               },

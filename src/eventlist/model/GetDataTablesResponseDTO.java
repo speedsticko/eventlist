@@ -5,7 +5,7 @@ package eventlist.model;
  *
  * @author Kwan
  */
-public class GetDataTablesViewModel {
+public class GetDataTablesResponseDTO {
 
     private int draw;
     private int recordsTotal;

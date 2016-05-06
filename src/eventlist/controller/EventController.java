@@ -12,8 +12,8 @@ import com.google.gson.Gson;
 import eventlist.data.EventsDAO;
 
 import eventlist.model.EventPeriodType;
-import eventlist.model.GetDataTablesRequestViewModel;
-import eventlist.model.GetDataTablesViewModel;
+import eventlist.model.GetDataTablesRequestDTO;
+import eventlist.model.GetDataTablesResponseDTO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -67,7 +67,7 @@ public class EventController extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
         LocalDate dt = formatter.parseLocalDate(reqDate);
 
-        GetDataTablesRequestViewModel dtRequest = new GetDataTablesRequestViewModel();
+        GetDataTablesRequestDTO dtRequest = new GetDataTablesRequestDTO();
 
         try {
             Connection conn = dataSource.getConnection();
@@ -86,7 +86,7 @@ public class EventController extends HttpServlet {
             } else {
                 throw new IllegalArgumentException("Unrecognized period type: " + reqPeriod);
             }
-            GetDataTablesViewModel eventsViewModel = eventsData.GetEventsForDataTable(dtRequest);
+            GetDataTablesResponseDTO eventsViewModel = eventsData.GetEventsForDataTable(dtRequest);
             String json = gson.toJson(eventsViewModel);
 
             response.setContentType("application/json");

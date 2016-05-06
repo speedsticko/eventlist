@@ -24,7 +24,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-//import eventlist.etl.EventRecord;
+
 @WebServlet("/upload")
 @MultipartConfig
 public class UploadController extends HttpServlet {

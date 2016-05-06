@@ -11,7 +11,7 @@ import org.joda.time.LocalDate;
  *
  * @author Kwan
  */
-public class GetDataTablesRequestViewModel {
+public class GetDataTablesRequestDTO {
 
     private int draw;
     private int start;

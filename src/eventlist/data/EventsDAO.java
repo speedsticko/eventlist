@@ -6,8 +6,8 @@
 package eventlist.data;
 
 import eventlist.model.EventPeriodType;
-import eventlist.model.GetDataTablesRequestViewModel;
-import eventlist.model.GetDataTablesViewModel;
+import eventlist.model.GetDataTablesRequestDTO;
+import eventlist.model.GetDataTablesResponseDTO;
 import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +32,7 @@ public class EventsDAO {
         this.conn = conn;
     }
 
-    public GetDataTablesViewModel GetEventsForDataTable(GetDataTablesRequestViewModel request) {
+    public GetDataTablesResponseDTO GetEventsForDataTable(GetDataTablesRequestDTO request) {
         LocalDate startDate = request.getDate();
         EventPeriodType periodType = request.getPeriod();
         int draw = request.getDraw();
@@ -86,7 +86,7 @@ public class EventsDAO {
                 totalRows = rs.getInt(1);
             }
 
-            GetDataTablesViewModel eventsViewModel = new GetDataTablesViewModel();
+            GetDataTablesResponseDTO eventsViewModel = new GetDataTablesResponseDTO();
             eventsViewModel.setData(list.toArray());
             eventsViewModel.setDraw(draw);
             eventsViewModel.setRecordsFiltered(totalRows);

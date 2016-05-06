@@ -101,8 +101,7 @@ public class CreateDatabaseListener implements ServletContextListener {
             if (sqle.getMessage().equals("Database '" + JDBC_CONN_STR+ "' shutdown.")) {
                 log.info("Derby DB Shutdown successfully!");
             } else {
-                throw new RuntimeException(
-                        "An error occurred shutting down the Derby instance!", sqle);
+                throw new RuntimeException("An error occurred shutting down the Derby instance!", sqle);
             }
         }
 

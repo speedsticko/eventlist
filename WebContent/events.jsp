@@ -221,7 +221,7 @@
                         }, {
                         "targets": -1,
                         "data": null,
-                        "defaultContent": "<button>Details</button>"
+                        "defaultContent": "<button class='mdl-button mdl-js-button mdl-button--icon'><i class='material-icons'>&#xE8FF;</i></button>"
                     } ]
                 });
                  //$("div.toolbar").html('&nbsp;');

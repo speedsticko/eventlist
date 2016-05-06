@@ -116,7 +116,7 @@ public class EventsDAO {
 
     public String GetEventDetails(int id) {
         ResultSet rs = null;
-        String sql = "select event_details "
+        String sql = "select event_detail "
                 + "from events where id = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

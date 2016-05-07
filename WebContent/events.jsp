@@ -112,6 +112,7 @@
         <script src="scripts/lib/dialog-polyfill.js"></script>
         <script src="scripts/lib/date.js"></script>
         <script src="scripts/lib/DataTables/datatables.min.js"></script>
+        <script src="scripts/lib/datatables.mdl.js"></script>
         <script src="scripts/main.js"></script>
         <script>
 

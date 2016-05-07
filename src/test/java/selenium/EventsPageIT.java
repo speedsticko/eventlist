@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  * @author Kwan
  */
-public class EventsPageTest {
+public class EventsPageIT {
     
     @Test
     public void testSimple() throws Exception {

@@ -8,7 +8,11 @@ public class EventRecord {
     private String event_size;
     private String event_details;
 
-    public EventRecord(String event_date, String event_type, String event_summary, String event_size, String event_details) {
+    public EventRecord(String event_date, 
+            String event_type, 
+            String event_summary, 
+            String event_size, 
+            String event_details) {
         this.setEvent_date(event_date);
         this.setEvent_type(event_type);
         this.setEvent_summary(event_summary);

@@ -54,6 +54,16 @@ public class EventController extends HttpServlet {
         String reqStart = request.getParameter("start");
         String reqLength = request.getParameter("length");
 
+        if(reqDate == null 
+                || reqPeriod == null 
+                || reqDraw == null 
+                || reqStart == null
+                || reqLength == null){
+            response.setContentType("text/plain");
+            response.setStatus(500);
+            response.getWriter().write("Missing parameters detected");
+        }
+
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
         LocalDate dt = formatter.parseLocalDate(reqDate);
 
@@ -67,15 +77,15 @@ public class EventController extends HttpServlet {
             dtRequest.setStart(Integer.parseInt(reqStart));
             dtRequest.setLength(Integer.parseInt(reqLength));
             dtRequest.setDate(dt);
+            EventPeriodType periodType = EventPeriodType.fromString(reqPeriod);
             
-            if ("week".equalsIgnoreCase(reqPeriod)) {
-                dtRequest.setPeriod(EventPeriodType.WEEK);
-            } else if ("month".equalsIgnoreCase(reqPeriod)) {
-                dtRequest.setPeriod(EventPeriodType.MONTH);
-            } else if ("quarter".equalsIgnoreCase(reqPeriod)) {
-                dtRequest.setPeriod(EventPeriodType.QUARTER);
+            if(periodType == null){
+                response.setContentType("text/plain");
+                response.setStatus(500);
+                response.getWriter().write("Unrecognized period type: " + reqPeriod);
+                return;
             } else {
-                throw new IllegalArgumentException("Unrecognized period type: " + reqPeriod);
+                dtRequest.setPeriod(periodType);
             }
             
             GetDataTablesResponseDTO eventsViewModel = eventsData.GetEventsForDataTable(dtRequest);
@@ -90,4 +100,5 @@ public class EventController extends HttpServlet {
 
     }
 
+    
 }

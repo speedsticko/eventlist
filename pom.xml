@@ -53,6 +53,7 @@
                         </goals>
                         <phase>pre-integration-test</phase>
                         <configuration>
+                            <skip>${skipITs}</skip>
                             <port>8080</port>
                             <fork>true</fork>
                         </configuration>
@@ -63,6 +64,9 @@
                             <goal>shutdown</goal>
                         </goals>
                         <phase>post-integration-test</phase>
+                        <configuration>
+                            <skip>${skipITs}</skip>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

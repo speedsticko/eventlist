@@ -128,7 +128,6 @@ $(document).ready(function () {
         var period = $('input[name=period-type]:checked', '#period-type-group').val();
         picker.setDate(getPrevStartDate(date, period));
         refreshDateRange();
-        table.ajax.reload();
     });
 
     $('#next-date').click(function (e) {
@@ -136,7 +135,6 @@ $(document).ready(function () {
         var period = $('input[name=period-type]:checked', '#period-type-group').val();
         picker.setDate(getNextStartDate(date, period));
         refreshDateRange();
-        table.ajax.reload();
     });
 
     $('input[name=period-type]', '#period-type-group').change(function (e) {

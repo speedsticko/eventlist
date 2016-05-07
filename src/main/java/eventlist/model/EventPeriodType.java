@@ -1,5 +1,8 @@
 package eventlist.model;
 
+import eventlist.controller.UploadController;
+import java.util.logging.Logger;
+
 /**
  * EventPeriodType represents the possible time periods recognized by the system.
  * @author klim
@@ -7,5 +10,21 @@ package eventlist.model;
 public enum EventPeriodType {
     WEEK,
     MONTH,
-    QUARTER
+    QUARTER;
+ 
+    /**
+     * Returns EventPeriodType from given string.
+     * @param text
+     * @return
+     */
+    public static EventPeriodType fromString(String text) {
+    if (text != null) {
+      for (EventPeriodType b : EventPeriodType.values()) {
+        if (text.equalsIgnoreCase(b.name())) {
+            return b;
+        }
+      }
+    }
+    return null;
+  }
 }

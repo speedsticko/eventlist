@@ -1,4 +1,4 @@
-
+/* Date Utility functions */
 function formatDate(date) {
     var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -60,8 +60,7 @@ function formatEndDate(startDate, period) {
     return formatDate(getEndDate(startDate, period).addDays(-1));
 }
 
-
-
+/* Set up UI when page is ready */
 $(document).ready(function () {
     var picker = new Pikaday({field: document.getElementById('datepicker'),
         defaultDate: new Date(2015, 11, 1),
@@ -97,7 +96,6 @@ $(document).ready(function () {
         "processing": true,
         "serverSide": true,
         "ajax": function (data, callback, settings) {
-            console.log(data);
             var startDate = formatDate(picker.getDate());
             var period = $('input[name=period-type]:checked', '#period-type-group').val();
             $.ajax({
@@ -121,7 +119,6 @@ $(document).ready(function () {
                 "defaultContent": "<button class='mdl-button mdl-js-button mdl-button--icon'><i class='material-icons'>&#xE8FF;</i></button>"
             }]
     });
-    //$("div.toolbar").html('&nbsp;');
 
     $('#prev-date').click(function (e) {
         var date = picker.getDate();
@@ -138,10 +135,14 @@ $(document).ready(function () {
     });
 
     $('input[name=period-type]', '#period-type-group').change(function (e) {
+        var date = picker.getDate();
         if ($(this).val() !== 'week') {
-            // go to first day of month
-        //   picker.
+            date = date.moveToFirstDayOfMonth();
+        } else {
+            date.moveToNthOccurrence(0, 1);
         }
+        picker.setDate(date);
+        
         refreshDateRange();
         table.ajax.reload();
     });

@@ -50,14 +50,8 @@ public class EventsDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(startDate.toDate().getTime()));
 
-            LocalDate endDate = null;
-            if (periodType == EventPeriodType.WEEK) {
-                endDate = startDate.plusWeeks(1);
-            } else if (periodType == EventPeriodType.MONTH) {
-                endDate = startDate.plusMonths(1);
-            } else if (periodType == EventPeriodType.QUARTER) {
-                endDate = startDate.plusMonths(3);
-            }
+            LocalDate endDate = getEndDate(periodType, startDate);
+            
             ps.setDate(2, new java.sql.Date(endDate.toDate().getTime()));
             ps.setInt(3, start);
             ps.setInt(4, length);
@@ -113,6 +107,27 @@ public class EventsDAO {
         }
 
         return null;
+    }
+
+    private LocalDate getEndDate(EventPeriodType periodType, LocalDate startDate) {
+        LocalDate endDate = null;
+        if (null != periodType) switch (periodType) {
+            case WEEK:
+                endDate = startDate.plusWeeks(1);
+                break;
+            case MONTH:
+                endDate = startDate.plusMonths(1);
+                break;
+            case QUARTER:
+                endDate = startDate.plusMonths(3);
+                break;
+            default:
+                break;
+        }
+        if(endDate != null) {
+            endDate = endDate.plusDays(-1);
+        }
+        return endDate;
     }
 
     /**

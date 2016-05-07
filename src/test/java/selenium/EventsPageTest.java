@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test.java.selenium;
+package selenium;
 
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;

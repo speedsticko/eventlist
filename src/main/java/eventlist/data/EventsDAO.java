@@ -17,6 +17,7 @@ import org.joda.time.LocalDate;
 
 /**
  * EventsDAO retrieves DTOs from the events database.
+ *
  * @author Kwan
  */
 public class EventsDAO {
@@ -29,11 +30,15 @@ public class EventsDAO {
 
     /**
      * Retrieve the paged event list data.
-     * 
+     *
      * @param request
-     * @return 
+     * @return
      */
     public GetDataTablesResponseDTO GetEventsForDataTable(GetDataTablesRequestDTO request) {
+        if (!validateRequest(request)) {
+            return null;
+        }
+
         LocalDate startDate = request.getDate();
         EventPeriodType periodType = request.getPeriod();
         int draw = request.getDraw();
@@ -45,13 +50,13 @@ public class EventsDAO {
         String sql = "select event_date, event_type, event_summary, event_size, id "
                 + "from events where event_date >= ? AND event_date <= ?"
                 + "ORDER BY event_date offset ? rows fetch first ? rows only";
-        
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(startDate.toDate().getTime()));
 
             LocalDate endDate = getEndDate(periodType, startDate);
-            
+
             ps.setDate(2, new java.sql.Date(endDate.toDate().getTime()));
             ps.setInt(3, start);
             ps.setInt(4, length);
@@ -109,22 +114,33 @@ public class EventsDAO {
         return null;
     }
 
+    private boolean validateRequest(GetDataTablesRequestDTO request) {
+        return !(request == null
+                || request.getDraw() < 0
+                || request.getDate() == null
+                || request.getPeriod() == null
+                || request.getStart() < 0
+                || request.getLength() <= 0);
+    }
+
     private LocalDate getEndDate(EventPeriodType periodType, LocalDate startDate) {
         LocalDate endDate = null;
-        if (null != periodType) switch (periodType) {
-            case WEEK:
-                endDate = startDate.plusWeeks(1);
-                break;
-            case MONTH:
-                endDate = startDate.plusMonths(1);
-                break;
-            case QUARTER:
-                endDate = startDate.plusMonths(3);
-                break;
-            default:
-                break;
+        if (null != periodType) {
+            switch (periodType) {
+                case WEEK:
+                    endDate = startDate.plusWeeks(1);
+                    break;
+                case MONTH:
+                    endDate = startDate.plusMonths(1);
+                    break;
+                case QUARTER:
+                    endDate = startDate.plusMonths(3);
+                    break;
+                default:
+                    break;
+            }
         }
-        if(endDate != null) {
+        if (endDate != null) {
             endDate = endDate.plusDays(-1);
         }
         return endDate;
@@ -132,8 +148,9 @@ public class EventsDAO {
 
     /**
      * Retrieve the event details for the given event id.
+     *
      * @param id
-     * @return 
+     * @return
      */
     public String GetEventDetails(int id) {
         ResultSet rs = null;

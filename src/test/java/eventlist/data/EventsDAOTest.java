@@ -34,14 +34,6 @@ public class EventsDAOTest {
 
     @BeforeClass
     public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
         logger.info("Starting in-memory database for unit tests");
 
         try {
@@ -61,18 +53,29 @@ public class EventsDAOTest {
         }
     }
 
-    @After
-    public void tearDown() {
+    @AfterClass
+    public static void tearDownClass() {
         try {
             logger.info("Shutting down Derby DB...");
             DriverManager.getConnection("jdbc:derby:memory:TestingDB;shutdown=true");
         } catch (SQLException sqle) {
-            if (sqle.getMessage().equals("Database 'TestingDB' shutdown.")) {
+            if (sqle.getMessage().equals("Database 'memory:TestingDB' shutdown.")) {
                 logger.info("Derby DB Shutdown successfully!");
             } else {
+                System.out.println(sqle.getMessage());
                 throw new RuntimeException("An error occurred shutting down the Derby instance!", sqle);
             }
         }
+    }
+
+    @Before
+    public void setUp() {
+
+    }
+
+    @After
+    public void tearDown() {
+
     }
 
     /**
@@ -81,8 +84,8 @@ public class EventsDAOTest {
     @Test
     public void testGetEventsForDataTable() {
         System.out.println("GetEventsForDataTable");
-        GetDataTablesRequestDTO request = null;
-        EventsDAO instance;
+        GetDataTablesRequestDTO request = new GetDataTablesRequestDTO();
+        EventsDAO instance = null;
         try {
             instance = new EventsDAO(DriverManager.getConnection("jdbc:derby:memory:TestingDB"));
 
@@ -107,7 +110,7 @@ public class EventsDAOTest {
         try {
             instance = new EventsDAO(DriverManager.getConnection("jdbc:derby:memory:TestingDB"));
 
-            String expResult = "";
+            String expResult = null;
             String result = instance.GetEventDetails(id);
             assertEquals(expResult, result);
         } catch (SQLException ex) {

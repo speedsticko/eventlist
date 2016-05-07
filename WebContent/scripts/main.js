@@ -1,8 +1,198 @@
-/*!
- DataTables Bootstrap 3 integration
- Â©2011-2015 SpryMedia Ltd - datatables.net/license
-*/
-(function(c){"function"===typeof define&&define.amd?define(["jquery","datatables.net"],function(a){return c(a,window,document)}):"object"===typeof exports?module.exports=function(a,d){a||(a=window);if(!d||!d.fn.dataTable)d=require("datatables.net")(a,d).$;return c(d,a,a.document)}:c(jQuery,window,document)})(function(c,a,d){var g=c.fn.dataTable;c.extend(!0,g.defaults,{dom:"<'mdl-grid'<'mdl-cell mdl-cell--6-col'l><'mdl-cell mdl-cell--6-col'f>><'mdl-grid dt-table'<'mdl-cell mdl-cell--12-col'tr>><'mdl-grid'<'mdl-cell mdl-cell--4-col'i><'mdl-cell mdl-cell--8-col'p>>",
-renderer:"material"});c.extend(g.ext.classes,{sWrapper:"dataTables_wrapper form-inline dt-material",sFilterInput:"form-control input-sm",sLengthSelect:"form-control input-sm",sProcessing:"dataTables_processing panel panel-default"});g.ext.renderer.pageButton.material=function(a,h,r,s,i,n){var o=new g.Api(a),l=a.oLanguage.oPaginate,t=a.oLanguage.oAria.paginate||{},f,e,p=0,q=function(d,g){var m,h,j,b,k=function(a){a.preventDefault();!c(a.currentTarget).hasClass("disabled")&&o.page()!=a.data.action&&
-o.page(a.data.action).draw("page")};m=0;for(h=g.length;m<h;m++)if(b=g[m],c.isArray(b))q(d,b);else{f="";j=!1;switch(b){case "ellipsis":f="&#x2026;";e="disabled";break;case "first":f=l.sFirst;e=b+(0<i?"":" disabled");break;case "previous":f=l.sPrevious;e=b+(0<i?"":" disabled");break;case "next":f=l.sNext;e=b+(i<n-1?"":" disabled");break;case "last":f=l.sLast;e=b+(i<n-1?"":" disabled");break;default:f=b+1,e="",j=i===b}j&&(e+=" mdl-button--raised mdl-button--colored");f&&(j=c("<button>",{"class":"mdl-button "+
-e,id:0===r&&"string"===typeof b?a.sTableId+"_"+b:null,"aria-controls":a.sTableId,"aria-label":t[b],"data-dt-idx":p,tabindex:a.iTabIndex,disabled:-1!==e.indexOf("disabled")}).html(f).appendTo(d),a.oApi._fnBindAction(j,{action:b},k),p++)}},k;try{k=c(h).find(d.activeElement).data("dt-idx")}catch(u){}q(c(h).empty().html('<div class="pagination"/>').children(),s);k&&c(h).find("[data-dt-idx="+k+"]").focus()};return g});
+
+function formatDate(date) {
+    var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+function formatStartDate(startDate, period) {
+    return formatDate(startDate);
+}
+
+function getEndDate(startDate, period) {
+    switch (period) {
+        case "week":
+            return startDate.addWeeks(1);
+        case "month":
+            return startDate.addMonths(1);
+        case "quarter":
+            return startDate.addMonths(3);
+        default:
+            return null;
+    }
+}
+
+function getPrevStartDate(startDate, period) {
+    switch (period) {
+        case "week":
+            return startDate.addWeeks(-1);
+        case "month":
+            return startDate.addMonths(-1);
+        case "quarter":
+            return startDate.addMonths(-3);
+        default:
+            return null;
+    }
+}
+
+function getNextStartDate(startDate, period) {
+    switch (period) {
+        case "week":
+            return startDate.addWeeks(1);
+        case "month":
+            return startDate.addMonths(1);
+        case "quarter":
+            return startDate.addMonths(3);
+        default:
+            return null;
+    }
+}
+
+function formatEndDate(startDate, period) {
+    return formatDate(getEndDate(startDate, period).addDays(-1));
+}
+
+
+
+$(document).ready(function () {
+    var picker = new Pikaday({field: document.getElementById('datepicker'),
+        defaultDate: new Date(2015, 11, 1),
+        disableDayFn: function(date){
+            var period = $('input[name=period-type]:checked', '#period-type-group').val();
+            if(period === 'week'){
+                // Only enable Sunday
+                return date.getDay() !== 0;
+            }else {
+                return date.getDate() !== 1;
+            }
+        },
+        setDefaultDate: true,
+        onSelect: function (date) {
+            refreshDateRange();
+            $('#datepicker').parent().addClass('is-dirty');
+            table.ajax.reload();
+        }});
+
+    function refreshDateRange() {
+        var date = picker.getDate();
+        var period = $('input[name=period-type]:checked', '#period-type-group').val();
+        $('#startDate').html(formatStartDate(date, period));
+        $('#endDate').html(formatEndDate(date, period));
+    }
+
+    var table = $('#events-datatable').DataTable({
+        "deferRender": true,
+        "searching": false,
+        "pageLength": 25,
+        "lengthChange": false,
+        "paging": true,
+        "processing": true,
+        "serverSide": true,
+        "ajax": function (data, callback, settings) {
+            console.log(data);
+            var startDate = formatDate(picker.getDate());
+            var period = $('input[name=period-type]:checked', '#period-type-group').val();
+            $.ajax({
+                method: "GET",
+                url: "events",
+                data: {date: startDate, period: period,
+                    draw: data.draw, start: data.start, length: data.length}
+            })
+                    .done(function (results) {
+                        callback(results);
+                    });
+
+        },
+        columnDefs: [
+            {
+                targets: [0, 1, 2, 4],
+                className: 'mdl-data-table__cell--non-numeric',
+            }, {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<button class='mdl-button mdl-js-button mdl-button--icon'><i class='material-icons'>&#xE8FF;</i></button>"
+            }]
+    });
+    //$("div.toolbar").html('&nbsp;');
+
+    $('#prev-date').click(function (e) {
+        var date = picker.getDate();
+        var period = $('input[name=period-type]:checked', '#period-type-group').val();
+        picker.setDate(getPrevStartDate(date, period));
+        refreshDateRange();
+        table.ajax.reload();
+    });
+
+    $('#next-date').click(function (e) {
+        var date = picker.getDate();
+        var period = $('input[name=period-type]:checked', '#period-type-group').val();
+        picker.setDate(getNextStartDate(date, period));
+        refreshDateRange();
+        table.ajax.reload();
+    });
+
+    $('input[name=period-type]', '#period-type-group').change(function (e) {
+        if ($(this).val() !== 'week') {
+            // go to first day of month
+        //   picker.
+        }
+        refreshDateRange();
+        table.ajax.reload();
+    });
+
+    var dialog = document.querySelector('#dialog');
+    if (!dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.querySelector('.close').addEventListener('click', function () {
+        dialog.close();
+    });
+    function setSelectionRange(input, selectionStart, selectionEnd) {
+        if (input.setSelectionRange) {
+            input.focus();
+            input.setSelectionRange(selectionStart, selectionEnd);
+        } else if (input.createTextRange) {
+            var range = input.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', selectionEnd);
+            range.moveStart('character', selectionStart);
+            range.select();
+        }
+    }
+
+    function setCaretToPos(input, pos) {
+        setSelectionRange(input, pos, pos);
+    }
+
+    $('#events-datatable tbody').on('click', 'button', function () {
+        // get id
+        var data = table.row($(this).parents('tr')).data();
+
+        var event_date = data[0];
+        var event_type = data[1];
+        var event_summary = data[2];
+        var event_size = data[3];
+        var event_id = data[4];
+        $("#dialog-event-id").text(event_id);
+        $("#dialog-event-date").text(event_date);
+        $("#dialog-event-type").text(event_type);
+        $("#dialog-event-summary").text(event_summary);
+        $("#dialog-event-size").text(event_size);
+
+        $.get("eventdetails?id=" + event_id, null, function (data) {
+            $("#modal-content").val(data);
+            setCaretToPos($("#modal-content")[0], 1);
+        }, "text");
+
+        dialog.showModal();
+    });
+    refreshDateRange();
+});

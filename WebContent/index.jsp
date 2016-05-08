@@ -92,42 +92,39 @@
             </div>
             <h3>Quick Start</h3>
             <p>
-              <ol>
-                <li>Upload your json data with the <a href="upload.jsp">Upload Page</a></li>
-                <li>Browse your events with the <a href="events.jsp">Events Page</a></li>
-              </ol>
+                You will need the following software installed and available on your machine. 
             </p>
-            
-            <h3>Requirements</h3>
+            <b>Required Software</b>
             <ul>
-              <li>JDK 1.8</li>
-              <li>Tomcat 8</li>
-              <li>Maven 3.3.9</li>              
+              <li>JDK 1.7+ - The java compiler and runtime environment.</li>
+              <li>Tomcat 8 - The web application server.</li>
+              <li>Maven 3.3.9 - The Maven build automation tool. </li>
             </ul>
             
+            <h3>Step-by-Step Setup</h3>
+            <ol>
+                <li>Make sure you have the required software installed</li>
+                <li>In a command prompt, navigate to the folder of the EventList project containing the <i>pom.xml</i> file</li>
+                <li>Enter: mvn clean install -DskipTests -DskipITs</li>
+                <li>In the <i>target</li> subfolder you will find a <i>eventlist-0.0.1-SNAPSHOT.war</i> file.
+                <li>Copy the <i>eventlist-0.0.1-SNAPSHOT.war</i> to your tomcat installation's <i>webapps</i> folder</li>
+                <li>Rename <i>eventlist-0.0.1-SNAPSHOT.war</i> to <i>eventlist.war</i> and start tomcat</li>
+                <li>Upload your json data with the <a href="http://localhost:8080/eventlist/upload.jsp">Upload Page</a></li>
+                <li>Browse your events with the <a href="http://localhost:8080/eventlist/events.jsp">Events Page</a></li>
+            </ol>
+            
+            The following third-party tools and libraries were use in this project.
             <h3>Dependencies</h3>
             <ul>
-              <li>Derby Db</li>
-              <li>Google GSON</li>
-              <li>JodaTime</li>
-              <li>jQuery 1.12.3</li>
-              <li>Date.js 1.0 Alpha-1</li>
-              <li>DataTables.js 1.10.11</li>
-              <li>Pikaday 1.4.0</li>
-              <li>Google Material Design Lite</li>
+              <li>Derby Db - http://db.apache.org/derby/ - for relational data storage</li>
+              <li>Google GSON - https://github.com/google/gson - for json serialization/deserialization</li>
+              <li>JodaTime - http://www.joda.org/joda-time/ - for working with DateTimes </li>
+              <li>jQuery 1.12.3 - https://jquery.com/ - for simplifying JavaScript code</li>
+              <li>Date.js 1.0 Alpha-1 - http://www.datejs.com/ - for working with Dates in JavaScript</li>
+              <li>DataTables.js 1.10.11 - https://datatables.net - for displaying tabular data</li>
+              <li>Pikaday 1.4.0 - https://github.com/dbushell/Pikaday - for starting date input</li>
+              <li>Google Material Design Lite - https://github.com/google/material-design-lite - for design and UX</li>
             </ul>
-            
-            <h3>How to install MDL</h3>
-              <p>
-                Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua elit.
-              </p>
-            <h3>Basic MDL Usage</h3>
-              <p>
-                Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua elit.
-              </p>
-              <p>
-                Commodo nisi non consectetur voluptate incididunt mollit duis dolore amet amet tempor exercitation. Qui amet aute ea aute id ad aliquip proident. Irure duis qui labore deserunt enim in quis nisi sint consequat aliqua. Ex proident labore et laborum tempor fugiat sint magna veniam minim. Nulla dolor labore adipisicing in enim mollit laboris fugiat eu. Aliquip minim cillum ullamco voluptate non dolore non ex duis fugiat duis ad. Deserunt cillum ad et nisi amet non voluptate culpa qui do. Labore ullamco et minim proident est laborum mollit ad labore deserunt ut irure dolore. Reprehenderit ad ad irure ut irure qui est eu velit eu excepteur adipisicing culpa. Laborum cupidatat ullamco eu duis anim reprehenderit proident aute ad consectetur eiusmod.
-              </p>
 
           </div>
         </div>

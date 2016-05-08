@@ -18,8 +18,8 @@ Step-by-Step Setup Instructions
 5 Copy the eventlist-0.0.1-SNAPSHOT.war to your tomcat installation's webapps folder
 6 Rename eventlist-0.0.1-SNAPSHOT.war to eventlist.war and start tomcat.
   * A new eventsDatabase Derby DB database will be created and initialized if necessary.
-7 Populate your database with the Upload Page
-8 Browse your events with the Events Page
+7 Populate your database with the Upload Page (http://localhost:8080/eventlist/upload.jsp)
+8 Browse your events with the Events Page (http://localhost:8080/eventlist/events.jsp)
 
 Testing
 ===========
@@ -38,3 +38,8 @@ Date.js 1.0 Alpha-1 - http://www.datejs.com/ - for working with Dates in JavaScr
 DataTables.js 1.10.11 - https://datatables.net - for displaying tabular data
 Pikaday 1.4.0 - https://github.com/dbushell/Pikaday - for starting date input
 Google Material Design Lite - https://github.com/google/material-design-lite - for design and UX
+
+Test On
+===========
+Windows 8.1
+Ubuntu Linux 14.04

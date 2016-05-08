@@ -111,13 +111,13 @@
                             <li>Rename <i>eventlist-0.0.1-SNAPSHOT.war</i> to <i>eventlist.war</i> and start tomcat.
                                 <p>A new <i>eventsDatabase</i> Derby DB database will be created and initialized if necessary.</p>
                             </li>
-                            <li>Populate your database with the <a href="http://localhost:8080/eventlist/upload.jsp">Upload Page</a></li>
-                            <li>Browse your events with the <a href="http://localhost:8080/eventlist/events.jsp">Events Page</a></li>
+                            <li>Populate your database with the <a href="/eventlist/upload.jsp">Upload Page</a></li>
+                            <li>Browse your events with the <a href="/eventlist/events.jsp">Events Page</a></li>
                         </ol>
 
                         <h3>Testing</h3>
                         <ul>
-                            <li>To run the JUnit tests, enter: mvn install -DskipITs</li>
+                            <li>To run the JUnit tests, enter: mvn test</li>
                             <li>To run the Selenium tests, install the IE web driver and , enter: mvn verify</li>
                         </ul>
                         

@@ -12,19 +12,28 @@ Maven 3.3.9 - The Maven build automation tool.
 Step-by-Step Setup Instructions
 =================================
 1 Make sure you have the required software installed
-2 In a command prompt, navigate to the folder of the EventList project containing the pom.xml file
+2 In a command prompt, navigate to the folder where you extracted the eventlist.zip file
+  * The root of this folder will contain the pom.xml file
 3 Enter: mvn clean install -DskipTests -DskipITs
 4 In the target subfolder you will find a eventlist-0.0.1-SNAPSHOT.war file.
 5 Copy the eventlist-0.0.1-SNAPSHOT.war to your tomcat installation's webapps folder
 6 Rename eventlist-0.0.1-SNAPSHOT.war to eventlist.war and start tomcat.
   * A new eventsDatabase Derby DB database will be created and initialized if necessary.
 7 Populate your database with the Upload Page (http://localhost:8080/eventlist/upload.jsp)
+  * This is a synchronous operation and can take some time depending on the input file size.
 8 Browse your events with the Events Page (http://localhost:8080/eventlist/events.jsp)
 
 Testing
 ===========
-To run the JUnit tests, enter: mvn install -DskipITs
-To run the Selenium tests, install the IE web driver and , enter: mvn verify
+Some very basic integration-style testing is included.
+
+JUnit Tests
+ * To run the JUnit tests, use the command: mvn test
+
+Selenium Tests
+ * To run the Selenium tests, you will first need to install the IE web driver (https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver).
+ * Edit the pom.xml's <webdriver.ie.driver> with the path to the IEDriverServer.exe
+ * Use the command: mvn verify -DskipTests
 
 Third-Party Dependencies
 =================================

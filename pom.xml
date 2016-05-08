@@ -12,7 +12,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <selenium.version>2.52.0</selenium.version>
         <overwrite.binaries>false</overwrite.binaries>
-        <browser>firefox</browser>
+        <browser>ie</browser>
+        <webdriver.ie.driver>c:\\pathto\\iedriver.exe</webdriver.ie.driver>
         <threads>1</threads>
         <remote>false</remote>
         <seleniumGridURL/>

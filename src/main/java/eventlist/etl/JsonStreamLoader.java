@@ -9,25 +9,53 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import eventlist.controller.EventDetailController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JsonStreamLoader {
 
     private static final Type EVENT_LIST_TYPE = new TypeToken<List<EventRecord>>(){}.getType();
+    private static final Logger logger = Logger.getLogger(JsonStreamLoader.class.getName());
+    private JsonReader jsonReader = null;
+    private Gson gson = null;
 
-    public List<EventRecord> Load(InputStream jsonInputStream) {
+    public JsonStreamLoader(InputStream jsonInputStream) {
 
-        Gson gson = new Gson();
-        JsonReader reader = null;
+        gson = new Gson();
         
         try {
-            reader = new JsonReader(new InputStreamReader(jsonInputStream, "UTF-8"));
-            reader.setLenient(true);
-            List<EventRecord> data = gson.fromJson(reader, EVENT_LIST_TYPE);
-            return data;
+            jsonReader = new JsonReader(new InputStreamReader(jsonInputStream, "UTF-8"));
+            jsonReader.setLenient(true);
+            jsonReader.beginArray();
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.log(Level.SEVERE, null, e);
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, null, ex);
+        }
+    }
+        
+    public EventRecord ReadNext(){
+        try {
+            if(jsonReader.hasNext()){
+                return gson.fromJson(jsonReader, EventRecord.class);
+            }
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public void Close(){
+        if(jsonReader != null){
+            try {
+                jsonReader.close();
+                jsonReader = null;
+                gson = null;
+            } catch (IOException ex) {
+                logger.log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

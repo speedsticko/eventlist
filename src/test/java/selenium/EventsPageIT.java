@@ -19,7 +19,6 @@ public class EventsPageIT {
     
     @Test
     public void testSimple() throws Exception {
-   System.setProperty("webdriver.ie.driver", "C:\\Users\\klim\\Downloads\\IEDriverServer_x64_2.53.1\\IEDriverServer.exe");
         
         WebDriver driver = new InternetExplorerDriver();
 

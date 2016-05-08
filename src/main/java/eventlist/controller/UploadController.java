@@ -21,6 +21,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -39,6 +41,10 @@ public class UploadController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(UploadController.class.getName());
 
+    @Resource(name = "jdbc/EventsDB")
+    private DataSource dataSource;
+
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -52,7 +58,7 @@ public class UploadController extends HttpServlet {
             List<EventRecord> list = loader.Load(fileContent);
             int[] results = null;
 
-            Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+            Connection con = dataSource.getConnection();
 
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
             ps = con.prepareStatement("insert into events(event_date, event_type, event_summary, event_size, event_detail) values (?,?,?,?,?)");

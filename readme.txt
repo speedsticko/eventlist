@@ -6,15 +6,16 @@ a list and detail view of events.
 Live Demo:
 ===============
 I deployed a live demo of this project to a Linode VPS using Docker.
+Both of the example JSON data files were used to populate the database.
 
 http://173.230.150.80:8080/eventlist/events.jsp
 
 
-File Listings
+Files Listing
 ============================
 The zip file expands to the following file listing:
 
-WebContent/ - JSP files
+WebContent/ - JSP files: events.jsp, upload.jsp, index.jsp
 WebContent/META-INF/context.xml - JDBC connection info for the events database
 WebContent/WEB-INF/database.sql - SQL script to create the events database
 WebContent/WEB-INF/web.xml      - deployment descriptor for webapp
@@ -54,7 +55,7 @@ Step-by-Step Setup Instructions
 
 Testing
 ===========
-Some very basic integration-style testing are included.
+Some very basic integration-style testing are included to see what is possible.
 
 JUnit Tests
  * The test is of the data access object running against an in-memory Derby database.
